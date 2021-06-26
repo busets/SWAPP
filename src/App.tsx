@@ -1,24 +1,45 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import theme from '../src/theme';
+import Header from './components/header/header';
+import Footer from './components/footer/footer';
+import { makeStyles } from '@material-ui/core';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Home from './views/home/index';
+import Planet from './views/planet/index'
 
-function App() {
+const useStyles = makeStyles( theme => ({
+  base: {
+    width: '100%',
+    height: '100%',
+    position: 'relative'
+  },
+  footer: {
+    width: '100%',
+    position: 'fixed',
+    bottom: 0
+  }
+}));
+
+const App = () => {
+  const styles = useStyles()
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={styles.base}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Header />
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/home" component={Home} />
+            <Route exact path="/planet" component={Planet} />
+          </Switch>
+        </BrowserRouter>
+        <div className={styles.footer}>
+          <Footer />
+        </div>
+      </ThemeProvider>
     </div>
   );
 }
