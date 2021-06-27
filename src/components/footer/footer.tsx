@@ -3,16 +3,10 @@ import { makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles( theme => ({
-  // banner: {
-  //   minHeight: '90vh',
-  //   '@media (min-width:600px)': {
-  //     padding: '0 4rem'
-  //   },
-  // },
   footer: {
     fontSize: '1.2rem',
     height: '60px',
-    backgroundColor: '#77818b',
+    backgroundColor: '#34495361',
     width: '100%',
     display: 'flex',
     alignItems: 'center',

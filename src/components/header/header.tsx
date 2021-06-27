@@ -2,16 +2,11 @@ import React from "react";
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles( theme => ({
-  // banner: {
-  //   minHeight: '90vh',
-  //   '@media (min-width:600px)': {
-  //     padding: '0 4rem'
-  //   },
-  // },
   header: {
     width: '100%',
-    height: 80,
-    backgroundColor: '#344953',
+    height: 65,
+    backgroundColor: '#34495361',
+    borderBottom: '1px solid #344953',
     position: 'fixed',
     display: 'flex',
     alignItems: 'center'
@@ -25,15 +20,13 @@ const useStyles = makeStyles( theme => ({
     padding: '0 2rem'
   },
   logo: {
-    color : 'white',
-    fontSize: '18px',
-    fontWeight: 'bold'
+    height:  '40px'
   },
   navList: {
     listStyle: 'none'
   },
   navItem: {
-    color: 'white',
+    color: '#344953',
     fontSize: '16px',
     display: 'inline-block',
     marginLeft: '15px'
@@ -45,7 +38,9 @@ const Header = () => {
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
-        <a className={styles.logo} href="/">Home</a>
+        <a href="/" >
+          <img src="/logo.png" alt="StarWars App" className={styles.logo} />
+        </a>
         <ul className={styles.navList}>
           <li className={styles.navItem}>Hello</li>
           <li className={styles.navItem}>World</li>

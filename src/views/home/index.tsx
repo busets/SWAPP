@@ -13,7 +13,27 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles( theme => ({
   banner: {
-    padding: '4rem 2rem'
+    padding: 0,
+    top: 0,
+    left:0,
+    // backgroundColor: 'red',
+    height: '100vh',
+  },
+  bannerImage: {
+    '@media (min-width:641px)': {
+      backgroundImage: `url('./images/banner.jpg')`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'top',
+      minHeight: '100%',
+      height: '100vh',
+    },
+    '@media (max-width:640px)': {
+      backgroundImage: `url('./images/banner-portrait.jpg')`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'top',
+      minHeight: '100%',
+      height: '100vh',
+    },
   },
   list: {
     padding: 0
@@ -85,6 +105,11 @@ const Home = (): JSX.Element => {
   return (
     <>
       <div >
+        <Container maxWidth="xl" className={styles.banner}>
+          <div className={styles.bannerImage}>
+
+          </div>
+        </Container>
         <Container maxWidth="xl" className={styles.list} id="list">
           {
             planetsData && planetsData.data.allPlanets && planetsData.data.allPlanets.planets && planetsData.data.allPlanets.planets.length && planetsData.data.allPlanets.planets.map( (planets: IDetail) => 
