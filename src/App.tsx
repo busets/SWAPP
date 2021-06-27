@@ -7,7 +7,7 @@ import Footer from './components/footer/footer';
 import { makeStyles } from '@material-ui/core';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from './views/home/index';
-import Planet from './views/planet/index'
+import Planet from './views/planet/detail'
 
 const useStyles = makeStyles( theme => ({
   base: {
@@ -32,8 +32,9 @@ const App = () => {
         <BrowserRouter>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/home" component={Home} />
-            <Route exact path="/planet" component={Planet} />
+            <Route exact path="/planet" component={Home} />
+            {/* <Route exact path="/planet/:id" component={Planet} /> */}
+            <Route exact path="/planet/:id" component={Planet} />
           </Switch>
         </BrowserRouter>
         <div className={styles.footer}>

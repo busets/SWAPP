@@ -2,7 +2,7 @@ import React, {  useState, useEffect, useRef } from "react";
 
 import { makeStyles } from '@material-ui/core/styles';
 import { useQuery } from '@apollo/client';
-import { GET_PLANETS } from "../../queries/planet.js";
+import { GET_LIST } from "../../queries/planet.js";
 
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -20,10 +20,10 @@ const useStyles = makeStyles( theme => ({
   },
   card: {
     margin: 20,
-    minHeight: 350
+    minHeight: 380
   },
   content: {
-    minHeight: 140
+    minHeight: 180
   },
   media:{
     height: 150,
@@ -37,10 +37,19 @@ const useStyles = makeStyles( theme => ({
     },
   }
 }));
+
+interface IFilm{
+  totalCount: number;
+}
+interface IResidents{
+  totalCount: number;
+}
 interface IDetail{
   id: string;
   name: string;
   population: number;
+  filmConnection: IFilm;
+  residentConnection: IResidents;
 }
 
 const first = 9;
@@ -50,7 +59,7 @@ const Home = (): JSX.Element => {
   
   const [planetsData,  setPlanetsdata ] = useState<any | null>(null);
   
-  const { error, data, fetchMore, networkStatus } = useQuery(GET_PLANETS, {
+  const { error, data, fetchMore, networkStatus } = useQuery(GET_LIST, {
     variables: {first},
     notifyOnNetworkStatusChange: true
   });
@@ -103,7 +112,7 @@ const Home = (): JSX.Element => {
                       <CardActionArea>
                         <CardMedia
                           className={styles.media}
-                          image="./images/default.jpg"
+                          image="../images/default.jpg"
                           title={planets.name}
                         />
                         <CardContent className={styles.content}>
@@ -111,12 +120,29 @@ const Home = (): JSX.Element => {
                             {planets.name}
                           </Typography>
                           <Typography color="textSecondary" component="p" className={styles.info}>
-                            {planets.name} is {planets.population ? 'a planet which has a total population of '+planets.population.toLocaleString('id-ID')+' creatures': ' an uninhabited planet'}.
+                            <strong>{planets.name}</strong> is 
+                            {
+                              planets.population ? 
+                              ' a planet that has a population of '+planets.population.toLocaleString('id-ID')+' creatures.'
+                              :
+                                (planets.name.toLowerCase() !== 'unknown') ?
+                                ' an uninhabited planet.'
+                                : ' a common name for an unknown planet in the starwars universe' 
+                            }
+                            {
+                              planets.filmConnection.totalCount ? 
+                              ' This planet is mentioned in '+planets.filmConnection.totalCount+' Star Wars movie series.' 
+                              : 
+                                (planets.name.toLowerCase() !== 'unknown') ?
+                                  planets.residentConnection.totalCount ? ' Only '+planets.residentConnection.totalCount+' resident connected to this planet'
+                                  : null
+                                : null
+                            }
                           </Typography>
                         </CardContent>
                       </CardActionArea>
                       <CardActions>
-                        <Button size="small" color="primary">
+                        <Button size="small" color="primary" href={'/planet/'+planets.id}>
                           Learn More
                         </Button>
                       </CardActions>

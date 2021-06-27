@@ -111,7 +111,7 @@ const Home = (): JSX.Element => {
                 Hello <br /><span>Travellers</span>
               </Typography>
               <Typography component="p" variant="h4" gutterBottom className={styles.bannerText}>
-                Welcome to starwars universe
+                Welcome to StarWars universe
               </Typography>
             </Grid>
           </div>
@@ -122,7 +122,7 @@ const Home = (): JSX.Element => {
               PLANETS
             </Typography>
             <Typography component="p" gutterBottom className={styles.sectionText}>
-              All the planets on Star Wars universe you've ever wanted to know.
+              All the planets on StarWars universe you've ever wanted to know.
             </Typography>
             <div className={styles.sectionBorder}></div>
           </Grid>
