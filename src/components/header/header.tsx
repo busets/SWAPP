@@ -1,20 +1,15 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles( theme => ({
-  // banner: {
-  //   minHeight: '90vh',
-  //   '@media (min-width:600px)': {
-  //     padding: '0 4rem'
-  //   },
-  // },
   header: {
     width: '100%',
-    height: 80,
-    backgroundColor: '#344953',
-    position: 'relative',
+    height: 65,
+    borderBottom: '1px solid #344953',
+    position: 'fixed',
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    zIndex: 1000
   },
   nav: {
     width: '100%',
@@ -25,30 +20,47 @@ const useStyles = makeStyles( theme => ({
     padding: '0 2rem'
   },
   logo: {
-    color : 'white',
-    fontSize: '18px',
-    fontWeight: 'bold'
+    height:  '40px'
   },
   navList: {
     listStyle: 'none'
   },
   navItem: {
-    color: 'white',
-    fontSize: '16px',
     display: 'inline-block',
-    marginLeft: '15px'
+    marginLeft: '15px',
+    '@media (min-width:641px)': {
+      fontSize: '1.2rem'
+    },
+    '@media (max-width:640px)': {
+      fontSize: '1.2rem'
+    },
   }
 }));
 
 const Header = () => {
   const styles = useStyles()
+  const [navbar, setNavbar] = useState(false)
+  const changeBackground = () => {
+    console.log(window.scrollY)
+    if (window.scrollY >= 66) {
+      setNavbar(true)
+    } else {
+      setNavbar(false)
+    }
+  }
+  useEffect(() => {
+    changeBackground()
+    window.addEventListener("scroll", changeBackground)
+  })
+
   return (
-    <header className={styles.header}>
+    <header className={styles.header} style={navbar ? {backgroundColor: 'white'}: {backgroundColor: '#34495361'}}>
       <nav className={styles.nav}>
-        <a className={styles.logo} href="/">Home</a>
-        <ul className={styles.navList}>
-          <li className={styles.navItem}>Hello</li>
-          <li className={styles.navItem}>World</li>
+        <a href="/" >
+          <img src="/logo.png" alt="StarWars App" className={styles.logo} />
+        </a>
+        <ul className={styles.navList} style={navbar ? {color: '#344953'}:{color: 'white'}}>
+          <li className={styles.navItem}>Watch List</li>
         </ul>
       </nav>
     </header>
