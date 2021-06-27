@@ -12,7 +12,7 @@ const useStyles = makeStyles( theme => ({
     width: '100%',
     height: 80,
     backgroundColor: '#344953',
-    position: 'relative',
+    position: 'fixed',
     display: 'flex',
     alignItems: 'center'
   },

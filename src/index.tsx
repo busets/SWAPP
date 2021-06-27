@@ -8,9 +8,22 @@ import {
   ApolloProvider
 } from "@apollo/client";
 
+// import { relayStylePagination } from "@apollo/client/utilities";
+
+
 const client = new ApolloClient({
   uri: 'http://localhost:9000',
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(
+    // {
+    //   typePolicies: {
+    //     Query: {
+    //       fields: {
+    //         allPlanets: relayStylePagination(),
+    //       },
+    //     },
+    //   },
+    // }
+  )
 });
 
 
