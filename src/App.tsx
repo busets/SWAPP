@@ -17,7 +17,7 @@ const useStyles = makeStyles( theme => ({
   },
   footer: {
     width: '100%',
-    position: 'fixed',
+    // position: 'fixed',
     bottom: 0
   }
 }));

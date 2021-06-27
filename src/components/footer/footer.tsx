@@ -6,12 +6,13 @@ const useStyles = makeStyles( theme => ({
   footer: {
     fontSize: '1.2rem',
     height: '60px',
-    backgroundColor: '#34495361',
+    backgroundColor: '#77818b',
     width: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '0 2rem'
+    padding: '0 2rem',
+    color: 'white'
   },
   heart: {
     color: 'red',

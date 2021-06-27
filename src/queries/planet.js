@@ -23,42 +23,40 @@ export const  GET_PLANETS = gql`
         rotationPeriod
         created
         edited
-        
+        residentConnection(first:3){
+          totalCount
+          residents{
+            id
+            name
+            gender
+            birthYear
+            hairColor
+            eyeColor
+            mass
+            height
+            skinColor
+            created
+            edited
+            species{
+              name
+              classification
+              designation
+            }
+            
+          }
+        }
+        filmConnection(first:3){
+          totalCount
+          films{
+            episodeID
+            title
+            releaseDate
+            director
+            producers
+            openingCrawl
+          }
+        }
       }
     }
   }
 `;
-
-// residentConnection(first:3){
-//   totalCount
-//   residents{
-//     id
-//     name
-//     gender
-//     birthYear
-//     hairColor
-//     eyeColor
-//     mass
-//     height
-//     skinColor
-//     created
-//     edited
-//     species{
-//       name
-//       classification
-//       designation
-//     }
-    
-//   }
-// }
-// filmConnection(first:3){
-//   totalCount
-//   films{
-//     episodeID
-//     title
-//     releaseDate
-//     director
-//     producers
-//     openingCrawl
-//   }
-// }

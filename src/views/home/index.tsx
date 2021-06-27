@@ -1,15 +1,9 @@
-import React, {  useState, useEffect, useRef } from "react";
-
 import { makeStyles } from '@material-ui/core/styles';
-import { useQuery } from '@apollo/client';
-import { GET_PLANETS } from "../../queries/planet.js";
 
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-// import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import Planets from '../planet/index'
 
 const useStyles = makeStyles( theme => ({
   banner: {
@@ -35,148 +29,105 @@ const useStyles = makeStyles( theme => ({
       height: '100vh',
     },
   },
-  list: {
-    padding: 0
-  }
+  bannerSection: {
+    '@media (min-width:641px)': {
+      padding: '20% 10%',
+    },
+    '@media (max-width:640px)': {
+      paddingTop:  '70vh',
+      paddingLeft: '10%',
+      paddingRight: '10%',
+    },
+  },
+  bannerTitle: {
+    color: 'white',
+    '@media (min-width:641px)': {
+      fontSize: '5rem'
+    },
+    '@media (max-width:640px)': {
+      fontSize: '2rem',
+      textAlign: 'center'
+    },
+  },
+  bannerText: {
+    color: 'white',
+    '@media (max-width:641px)': {
+      fontSize: '1.25rem',
+      textAlign: 'center'
+    },
+    '@media (min-width:641px)': {
+      fontSize: '2rem',
+    },
+  },
+  section: {
+    '@media (min-width:641px)': {
+      padding: '3rem 2rem'
+    },
+    '@media (max-width:640px)': {
+      padding: '2rem 0'
+    },
+  },
+  sectionBorder: {
+    display: 'block',
+    width: '200px',
+    height: '3px',
+    background: '#f1cd8f',
+    margin: '20px auto',
+    '@media (max-width:600px)': {
+      width: '120px',
+      margin: '10px auto',
+    },
+  },
+  sectionTitle: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: '2rem',
+    '@media (min-width:600px)': {
+      fontSize: '5rem'
+    },
+  },
+  sectionText: {
+    textAlign: 'center',
+    color: 'gray',
+    '@media (max-width:640px)': {
+      fontSize: '1.25rem',
+      textAlign: 'center'
+    },
+    '@media (min-width:641px)': {
+      fontSize: '2rem',
+    },
+  },
 }));
-interface IDetail{
-  id: string;
-  name: string;
-}
-
-// interface IPlanets{
-//   total: number;
-//   info: {
-//     hasNextPage : boolean;
-//     endCursor: string;
-//   };
-//   list: IDetail[];
-// }
-
-
-const first = 10;
 
 const Home = (): JSX.Element => {
   const styles = useStyles();
-  
-  const [planetsData,  setPlanetsdata ] = useState<any | null>(null);
-  
-  const { error, data, fetchMore, networkStatus } = useQuery(GET_PLANETS, {
-    variables: {first},
-    notifyOnNetworkStatusChange: true
-  });
-
-  const observerRef = useRef<any | null>(null);
-  const [buttonRef, setButtonRef] = useState<any | null>(null);
-
-  useEffect(() => {
-    const options = {
-      root: document.querySelector("#list"),
-      threshold: 0.1,
-    };
-    observerRef.current = new IntersectionObserver((entries) => {
-      const entry = entries[0];
-      if (entry.isIntersecting) {
-        let element: HTMLElement = document.querySelectorAll('#'+entry.target.id)[0] as HTMLElement;
-        element.click();
-      }
-    }, options);
-  }, []);
-
-  useEffect(() => {
-    if (buttonRef) {
-      if(observerRef.current){
-        observerRef.current.observe(document.querySelector("#buttonLoadMore"));
-      }
-    }
-  }, [buttonRef]);
-
-  if (error) {
-    console.log(error);
-    return <div>Error</div>;
-  }
-
-  if (networkStatus === 1) {
-    return <div>Loading...</div>;
-  }
-
-  const hasNextPage = planetsData ? planetsData.data.allPlanets.pageInfo.hasNextPage: data.allPlanets.pageInfo.hasNextPage;
-  const isRefetching = networkStatus === 3;
   return (
     <>
-      <div >
+      <div>
         <Container maxWidth="xl" className={styles.banner}>
           <div className={styles.bannerImage}>
-
+            <Grid xl={6} xs={12} item={true} className={styles.bannerSection}>
+              <Typography component="h1" variant="h2" gutterBottom className={styles.bannerTitle}>
+                Hello <br /><span>Travellers</span>
+              </Typography>
+              <Typography component="p" variant="h4" gutterBottom className={styles.bannerText}>
+                Welcome to starwars universe
+              </Typography>
+            </Grid>
           </div>
         </Container>
-        <Container maxWidth="xl" className={styles.list} id="list">
-          {
-            planetsData && planetsData.data.allPlanets && planetsData.data.allPlanets.planets && planetsData.data.allPlanets.planets.length && planetsData.data.allPlanets.planets.map( (planets: IDetail) => 
-              <Grid container xl={12} xs={12} direction="row" spacing={1} alignItems={'center'} justify={'center' }style={{ width: "100%" }} item={true}  key={planets.id}>
-                <Grid xl={12} xs={12} item={true} >
-                  <Card style={{
-                      margin: '40px', 
-                      padding: '30px',
-                      minHeight:400,
-                      justifyContent: 'center',
-                      borderRadius: '20px'
-                    }}>
-                      <Typography variant="h4" component="p" gutterBottom style={{paddingBottom: '20px', color: '#ec5c25'}}>
-                        {planets.id}
-                      </Typography>
-                      <Typography variant="h4"  component="h4" gutterBottom style={{height: 70, marginBottom: 50}}>
-                        <strong>{planets.name} </strong> 
-                      </Typography>
-                      <Typography component="p" gutterBottom>
-                        {planets.id}
-                      </Typography>
-                    </Card>
-                </Grid>
-              </Grid>
-            )
-          }
-
-          {hasNextPage && (
-            <div >
-              <Button
-                ref={setButtonRef}
-                id="buttonLoadMore"
-                disabled={isRefetching}
-                style={{backgroundColor: 'none', color:'none'}}
-                onClick={() =>
-                  fetchMore({
-                    variables: {
-                      first,
-                      after: planetsData ? planetsData.data.allPlanets.pageInfo.endCursor : data.allPlanets.pageInfo.endCursor
-                    },
-                    updateQuery: (previousResult: any, { fetchMoreResult }: any) => {
-                      if(previousResult.allPlanets.pageInfo.hasPreviousPage) return previousResult
-                      const newEntries = fetchMoreResult.allPlanets;
-                      const prevEntries = planetsData ? planetsData.data.allPlanets.planets : previousResult.allPlanets.planets
-                      const newData = {
-                        data: {
-                          allPlanets: {
-                            total : previousResult.allPlanets.totalCount,
-                            pageInfo: {
-                              hasNextPage: newEntries.pageInfo.hasNextPage,
-                              endCursor: newEntries.pageInfo.endCursor
-                            },
-                            planets: [...prevEntries, ...newEntries.planets],
-                          }
-                        }
-                      };
-                      setPlanetsdata(newData);
-                      return { newData};
-                    },
-                  })
-                }
-              >
-                load more
-              </Button>
-            </div>
-          )}
-        </Container>
+        <Grid xl={12} xs={12} className={styles.section} item={true}>
+          <Grid xl={12}  xs={12} item={true}>
+            <Typography variant="h2" component="h1" gutterBottom className={styles.sectionTitle}>
+              PLANETS
+            </Typography>
+            <Typography component="p" gutterBottom className={styles.sectionText}>
+              All the planets on Star Wars universe you've ever wanted to know.
+            </Typography>
+            <div className={styles.sectionBorder}></div>
+          </Grid>
+          <Planets />
+        </Grid>
       </div>
     </>
   );
