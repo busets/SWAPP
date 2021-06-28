@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import {  match } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -97,19 +97,17 @@ const useStyles = makeStyles( theme => ({
     },
   },
   section: {
-    // height: '100vh',
+    height: '100vh',
     padding: 0,
-    marginTop: 5,
-    marginBottom: 5
+    marginTop: 5
   },
   divGray: {
     '@media (min-width:641px)': {
       backgroundColor: '#f4f4f4'
     },
-    // height: '100vh'
+    height: '100vh'
   },
   content: {
-
     '@media (max-width:641px)': {
       padding: '2rem'
     },
@@ -122,7 +120,6 @@ const useStyles = makeStyles( theme => ({
   }
 }));
 
-
 const Details: React.FC<IProps> = (props: IProps): JSX.Element => {
   const id = props.match?.params.id;
   const [watchlist, setWatchlist] = useState<boolean|false>(false);
@@ -130,6 +127,17 @@ const Details: React.FC<IProps> = (props: IProps): JSX.Element => {
     variables: {planetId:id}
   });
   const styles = useStyles();
+
+  useEffect(() => {
+    const planets:any = window.localStorage.getItem('watchlist');
+    var plan = JSON.parse(planets)
+    if(plan && plan.length){
+      var checkData= plan.find((z:string) => z === id);
+      if(checkData) {
+        setWatchlist(true)
+      }
+    }
+  },[id]);
 
   const handleFav = (planetId:string) => {
     var favourites = localStorage.getItem('watchlist');
