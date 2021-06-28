@@ -34,6 +34,19 @@ const useStyles = makeStyles( theme => ({
     '@media (max-width:640px)': {
       fontSize: '1.2rem'
     },
+  },
+  navLink:{
+    textDecoration: 'none',
+    '&:hover': {
+      color: "#ec5c25",
+    }
+  },
+  navLink2:{
+    color: 'white',
+    textDecoration: 'none',
+    '&:hover': {
+      color: "#ec5c25",
+    }
   }
 }));
 
@@ -60,7 +73,7 @@ const Header = () => {
         </a>
         <ul className={styles.navList} style={navbar ? {color: '#344953'}:{color: 'white'}}>
           <li className={styles.navItem}>
-            <a href="../watchlist">Watch List</a>
+            <a href="../watchlist" className={navbar ? styles.navLink : styles.navLink2}>Watch List</a>
           </li>
         </ul>
       </nav>

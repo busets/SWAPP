@@ -11,9 +11,9 @@ yarn install
 export PORT=9000 / our SWAPI should use port 9000
 yarn start 
 ```
-### How to Use
+### How to Run
 
-You need to install SWAPI GRAPHQL first
+To run SWAPP use command below
 ```sh
 yarn install 
 yarn start 
