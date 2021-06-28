@@ -78,4 +78,56 @@ const GET_LIST = gql`
   }
 `;
 
-export { GET_LIST, GET_PLANET }
+const GET_WATCHLIST = gql`
+  query allPlanets($containID : [ID!]){
+    planet(id: $containID) {
+      id
+      name
+      diameter
+      gravity
+      climates
+      surfaceWater
+      population
+      orbitalPeriod
+      rotationPeriod
+      created
+      edited
+      terrains
+      residentConnection(first:3){
+        totalCount
+        residents{
+          id
+          name
+          gender
+          birthYear
+          hairColor
+          eyeColor
+          mass
+          height
+          skinColor
+          created
+          edited
+          species{
+            name
+            classification
+            designation
+          }
+          
+        }
+      }
+      filmConnection(first:3){
+        totalCount
+        films{
+          episodeID
+          title
+          releaseDate
+          director
+          producers
+          openingCrawl
+        }
+      }
+    }
+  }
+`;
+
+export { GET_LIST, GET_PLANET, GET_WATCHLIST }

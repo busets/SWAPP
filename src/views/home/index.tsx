@@ -1,5 +1,5 @@
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -15,14 +15,14 @@ const useStyles = makeStyles( theme => ({
   },
   bannerImage: {
     '@media (min-width:641px)': {
-      backgroundImage: `url('./images/banner.jpg')`,
+      backgroundImage: `url('../images/banner.jpg')`,
       backgroundSize: 'cover',
       backgroundPosition: 'top',
       minHeight: '100%',
       height: '100vh',
     },
     '@media (max-width:640px)': {
-      backgroundImage: `url('./images/banner-portrait.jpg')`,
+      backgroundImage: `url('../images/banner-portrait.jpg')`,
       backgroundSize: 'cover',
       backgroundPosition: 'top',
       minHeight: '100%',

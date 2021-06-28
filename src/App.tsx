@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../src/theme';
@@ -7,7 +7,9 @@ import Footer from './components/footer/footer';
 import { makeStyles } from '@material-ui/core';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from './views/home/index';
-import Planet from './views/planet/detail'
+import Planet from './views/planet/detail';
+import NotFound from './views/notfound';
+import WatchList from './views/watchlist/index';
 
 const useStyles = makeStyles( theme => ({
   base: {
@@ -24,6 +26,10 @@ const useStyles = makeStyles( theme => ({
 
 const App = () => {
   const styles = useStyles()
+  useEffect(() => {
+    document.title = "StarWars Universe";   
+  }, []);
+  
   return (
     <div className={styles.base}>
       <ThemeProvider theme={theme}>
@@ -33,8 +39,9 @@ const App = () => {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/planet" component={Home} />
-            {/* <Route exact path="/planet/:id" component={Planet} /> */}
+            <Route exact path="/watchlist" component={WatchList} />
             <Route exact path="/planet/:id" component={Planet} />
+            <Route path='*' exact={true} component={NotFound} />
           </Switch>
         </BrowserRouter>
         <div className={styles.footer}>

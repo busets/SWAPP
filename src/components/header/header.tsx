@@ -39,9 +39,8 @@ const useStyles = makeStyles( theme => ({
 
 const Header = () => {
   const styles = useStyles()
-  const [navbar, setNavbar] = useState(false)
+  const [navbar, setNavbar] = useState<boolean|false>(false)
   const changeBackground = () => {
-    console.log(window.scrollY)
     if (window.scrollY >= 66) {
       setNavbar(true)
     } else {
@@ -60,7 +59,9 @@ const Header = () => {
           <img src="/logo.png" alt="StarWars App" className={styles.logo} />
         </a>
         <ul className={styles.navList} style={navbar ? {color: '#344953'}:{color: 'white'}}>
-          <li className={styles.navItem}>Watch List</li>
+          <li className={styles.navItem}>
+            <a href="../watchlist">Watch List</a>
+          </li>
         </ul>
       </nav>
     </header>
