@@ -44,7 +44,8 @@ const useStyles = makeStyles( theme => ({
     },
   },
   section: {
-    height: '80vh'
+    height: '80vh',
+    marginBottom: '20vh'
   },
   headline:{
     backgroundColor: '#303030', 
@@ -72,7 +73,7 @@ const useStyles = makeStyles( theme => ({
       padding: '5rem 2rem',
     },
     '@media (max-width:640px)': {
-      padding: '2rem'
+      padding: '5rem 2rem'
     },
   },
 }));
